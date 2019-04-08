@@ -9,6 +9,8 @@
   "dependencies": {
     "react": "16.6.3",
     "react-native": "0.57.8",
+    "react-native-easy-grid": "^0.2.1",
+    "react-native-parallax-scroll-view": "^0.21.3",
     "react-navigation": "^3.0.9"
   },
   "devDependencies": {
