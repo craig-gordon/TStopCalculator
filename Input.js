@@ -40,7 +40,8 @@ export default class Input extends React.Component {
         <View
           style={{
             alignItems: 'center',
-            paddingTop: 30
+            paddingTop: 30,
+            paddingBottom: 30
           }}
         >
           <Image
@@ -51,18 +52,6 @@ export default class Input extends React.Component {
             source={require('./zerooptik_logo.jpeg')}
           />
         </View>
-        <TouchableOpacity
-          style={{ alignItems: 'center' }}
-          title="Go see output"
-          onPress={() =>
-            this.props.navigation.navigate('Output', { state: this.state })
-          }
-        >
-          <Image
-            style={styles.button}
-            source={require('./button_see-output.png')}
-          />
-        </TouchableOpacity>
 
         <View style={{ flexDirection: 'row' }}>
           <Text
@@ -111,7 +100,7 @@ export default class Input extends React.Component {
           />
         </View>
 
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', paddingBottom: 40 }}>
           <Text
             style={{
               flex: 1,
@@ -136,11 +125,12 @@ export default class Input extends React.Component {
 
         <Text
           style={{
+            color: 'grey',
             fontWeight: 'bold',
             fontSize: 18
           }}
         >
-          Nominal Max Aperture
+          Max T-Stop Calculation
           {this.state.maxApertureReading > 0
             ? ` ${Math.sqrt(
                 this.state.data[0].Reading(
@@ -150,6 +140,18 @@ export default class Input extends React.Component {
               ).toFixed(3)}`
             : null}
         </Text>
+        <TouchableOpacity
+          style={{ alignItems: 'center', paddingTop: 50 }}
+          title="Go see output"
+          onPress={() =>
+            this.props.navigation.navigate('Output', { state: this.state })
+          }
+        >
+          <Image
+            style={styles.button}
+            source={require('./button_see-output.png')}
+          />
+        </TouchableOpacity>
       </View>
     );
   }

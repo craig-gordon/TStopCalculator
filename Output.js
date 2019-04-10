@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView
-} from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { data } from './data.js';
 
 const styles = StyleSheet.create({
@@ -27,10 +21,42 @@ export default class Output extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <TouchableOpacity
-          title="Go see input"
-          onPress={() => this.props.navigation.navigate('Input')}
-        />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            paddingBottom: 40,
+            paddingTop: 40
+          }}
+        >
+          <Text
+            style={{
+              fontWeight: 'bold',
+              alignItems: 'center',
+              fontSize: 12
+            }}
+          >
+            {' '}
+            Max Aperture Reading
+            {` ${this.state.maxApertureReading}`}
+          </Text>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              fontSize: 12
+            }}
+          >
+            Max T-Stop Calculation
+            {this.state.maxApertureReading > 0
+              ? ` ${Math.sqrt(
+                  this.state.data[0].Reading(
+                    this.state.calibrationReading,
+                    this.state.calibrationIndex
+                  ) / this.state.maxApertureReading
+                ).toFixed(3)}`
+              : null}
+          </Text>
+        </View>
         <View
           style={{
             flexDirection: 'row',
