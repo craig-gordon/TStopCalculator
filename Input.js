@@ -1,20 +1,40 @@
 import React from 'react';
-import { data } from './data.js';
-import { View, Text, ScrollView, TextInput, Image } from 'react-native';
+import { data, fStops } from './data.js';
+
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  Picker,
+  TouchableOpacity,
+  StyleSheet
+} from 'react-native';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  button: { alignItems: 'center', backgroundColor: '#DDDDDD', padding: 10 }
+});
 
 export default class Input extends React.Component {
   constructor(props) {
     super(props);
-    console.log('input was constructed', data);
+
     this.state = {
-      f2Reading: '',
-      WfoReading: '',
+      calibrationStop: '1.0',
+      calibrationIndex: '0',
+      calibrationReading: '',
+      maxApertureReading: '',
       data
     };
   }
 
   render() {
-    console.log('in render of input', data);
     return (
       <View style={{ flex: 1 }}>
         <View
@@ -31,17 +51,44 @@ export default class Input extends React.Component {
             source={require('./zerooptik_logo.jpeg')}
           />
         </View>
-        <View style={{ flexDirection: 'row', paddingTop: 50 }}>
+        <TouchableOpacity
+          style={{ alignItems: 'center' }}
+          title="Go see output"
+          onPress={() =>
+            this.props.navigation.navigate('Output', { state: this.state })
+          }
+        >
+          <Image
+            style={styles.button}
+            source={require('./button_see-output.png')}
+          />
+        </TouchableOpacity>
+
+        <View style={{ flexDirection: 'row' }}>
           <Text
             style={{
               flex: 1,
-              marginLeft: 60,
               fontWeight: 'bold',
               fontSize: 18
             }}
           >
-            f/2.0 Reading
+            Calibration Stop
           </Text>
+          <Picker
+            itemStyle={{ height: 44 }}
+            selectedValue={this.state.calibrationStop}
+            style={{ flex: 1 }}
+            onValueChange={(calibrationStop, index) =>
+              this.setState({ calibrationStop, calibrationIndex: index })
+            }
+          >
+            {fStops.map(fstop => (
+              <Picker.Item key={fstop} label={fstop} value={fstop} />
+            ))}
+          </Picker>
+        </View>
+
+        <View style={{ flexDirection: 'row' }}>
           <Text
             style={{
               flex: 1,
@@ -49,127 +96,60 @@ export default class Input extends React.Component {
               fontSize: 18
             }}
           >
-            WFO Reading
+            Calibration Reading
           </Text>
-        </View>
-        <View style={{ minHeight: 100 }}>
-          <View
+          <TextInput
             style={{
-              flexDirection: 'row',
-              marginBottom: 50
+              flex: 1,
+              fontSize: 18
+            }}
+            onChangeText={calibrationReading => {
+              this.setState({ calibrationReading });
+            }}
+            value={this.state.calibrationReading}
+            placeholder="0"
+          />
+        </View>
+
+        <View style={{ flexDirection: 'row' }}>
+          <Text
+            style={{
+              flex: 1,
+              fontWeight: 'bold',
+              fontSize: 18
             }}
           >
-            <TextInput
-              style={{
-                flex: 1,
-                marginLeft: 100,
-                fontSize: 18
-              }}
-              onChangeText={f2Reading => {
-                this.setState({ f2Reading });
-                console.log('f2Reading', f2Reading);
-              }}
-              value={this.state.f2Reading}
-              placeholder="0"
-            />
-            <TextInput
-              style={{
-                flex: 0.8,
-                fontSize: 18
-              }}
-              onChangeText={WfoReading => {
-                this.setState({ WfoReading });
-                console.log('WfoReading', WfoReading);
-              }}
-              value={this.state.WfoReading}
-              placeholder="0"
-            />
-          </View>
-          {this.state.WfoReading > 0 ? (
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'flex-end'
-              }}
-            >
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 18
-                }}
-              >
-                Maximum T-Stop:
-                {` ${Math.sqrt(
-                  this.state.data[0].Reading(this.state.f2Reading) /
-                    this.state.WfoReading
-                ).toFixed(3)}`}
-              </Text>
-            </View>
-          ) : null}
+            MAX Aperture Reading
+          </Text>
+          <TextInput
+            style={{
+              flex: 0.8,
+              fontSize: 18
+            }}
+            onChangeText={maxApertureReading => {
+              this.setState({ maxApertureReading });
+            }}
+            value={this.state.maxApertureReading}
+            placeholder="0"
+          />
         </View>
-        <View
+
+        <Text
           style={{
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-            backgroundColor: '#D1D1D1',
-            marginBottom: 5
+            fontWeight: 'bold',
+            fontSize: 18
           }}
         >
-          <Text
-            style={{
-              flex: 1,
-              fontWeight: 'bold',
-              marginLeft: 80,
-              fontSize: 18
-            }}
-          >
-            T-Stop
-          </Text>
-          <Text
-            style={{
-              flex: 1,
-              fontWeight: 'bold',
-              fontSize: 18
-            }}
-          >
-            Reading
-          </Text>
-        </View>
-        <ScrollView>
-          {data.map(item => (
-            <View
-              key={item.TStop}
-              style={{ borderBottomColor: '#F5F5F5', borderBottomWidth: 1 }}
-            >
-              <View
-                style={{
-                  flexDirection: 'row',
-                  marginLeft: 80
-                }}
-              >
-                <Text
-                  style={{
-                    flex: 1,
-                    color: 'grey',
-                    fontSize: 18,
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {item.TStop}
-                </Text>
-                <Text
-                  style={{
-                    flex: 1,
-                    color: 'grey',
-                    fontSize: 18
-                  }}
-                >
-                  {item.Reading(this.state.f2Reading)}
-                </Text>
-              </View>
-            </View>
-          ))}
-        </ScrollView>
+          Nominal Max Aperture
+          {this.state.maxApertureReading > 0
+            ? ` ${Math.sqrt(
+                this.state.data[0].Reading(
+                  this.state.calibrationReading,
+                  this.state.calibrationIndex
+                ) / this.state.maxApertureReading
+              ).toFixed(3)}`
+            : null}
+        </Text>
       </View>
     );
   }

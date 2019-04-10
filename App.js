@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import AppNavigator from './AppNavigator';
 
@@ -33,14 +33,6 @@ const styles = StyleSheet.create({
 const AppContainer = createAppContainer(AppNavigator);
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      f2Reading: null,
-      WFOReading: null
-    };
-  }
-
   render() {
     return (
       <View style={styles.container}>
