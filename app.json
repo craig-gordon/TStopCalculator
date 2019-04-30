@@ -1,4 +1,10 @@
 {
   "name": "TStopCalculator",
-  "displayName": "TStopCalculator"
+  "displayName": "TStopCalculator",
+  "expo": {
+    "name": "TStopCalculator",
+    "slug": "t-stop-calculator",
+    "sdkVersion": "32.0.0",
+    "privacy": "public"
+  }
 }

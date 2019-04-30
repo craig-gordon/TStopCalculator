@@ -49,7 +49,7 @@ export default class Input extends React.Component {
               width: 170,
               height: 35
             }}
-            source={require('./zerooptik_logo.jpeg')}
+            source={require('./assets/zerooptik_logo.jpeg')}
           />
         </View>
 
@@ -96,7 +96,7 @@ export default class Input extends React.Component {
               this.setState({ calibrationReading });
             }}
             value={this.state.calibrationReading}
-            placeholder="0"
+            placeholder='0'
           />
         </View>
 
@@ -119,7 +119,7 @@ export default class Input extends React.Component {
               this.setState({ maxApertureReading });
             }}
             value={this.state.maxApertureReading}
-            placeholder="0"
+            placeholder='0'
           />
         </View>
 
@@ -142,14 +142,14 @@ export default class Input extends React.Component {
         </Text>
         <TouchableOpacity
           style={{ alignItems: 'center', paddingTop: 50 }}
-          title="Go see output"
+          title='Go see output'
           onPress={() =>
             this.props.navigation.navigate('Output', { state: this.state })
           }
         >
           <Image
             style={styles.button}
-            source={require('./button_see-output.png')}
+            source={require('./assets/button_see-output.png')}
           />
         </TouchableOpacity>
       </View>
