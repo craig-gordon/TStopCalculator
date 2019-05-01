@@ -1,11 +1,21 @@
-import * as thing from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import Input from './Input';
 import Output from './Output';
 
-const AppNavigator = thing.createStackNavigator(
+const AppNavigator = createStackNavigator(
   {
-    Input: { screen: Input },
-    Output: { screen: Output }
+    Input: {
+      screen: Input,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Output: {
+      screen: Output,
+      navigationOptions: {
+        header: null
+      }
+    }
   },
   {
     initialRouteName: 'Input'

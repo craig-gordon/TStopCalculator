@@ -19,5 +19,10 @@
     "jest": "^24.7.1",
     "react-native-testing-library": "^1.7.0"
   },
-  "private": true
+  "private": true,
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  }
 }

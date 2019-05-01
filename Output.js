@@ -13,10 +13,9 @@ const styles = StyleSheet.create({
 });
 
 export default class Output extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { ...this.props.navigation.state.params.state };
-  }
+  state = {
+    ...this.props.navigation.state.params.state
+  };
 
   render() {
     return (
@@ -25,15 +24,15 @@ export default class Output extends React.Component {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-evenly',
-            paddingBottom: 40,
-            paddingTop: 40
+            paddingTop: 40,
+            paddingBottom: 20
           }}
         >
           <Text
             style={{
               fontWeight: 'bold',
               alignItems: 'center',
-              fontSize: 12
+              fontSize: 14
             }}
           >
             {' '}
@@ -43,7 +42,7 @@ export default class Output extends React.Component {
           <Text
             style={{
               fontWeight: 'bold',
-              fontSize: 12
+              fontSize: 14
             }}
           >
             Max T-Stop Calculation
@@ -70,7 +69,7 @@ export default class Output extends React.Component {
               flex: 1,
               fontWeight: 'bold',
               marginLeft: 80,
-              fontSize: 18
+              fontSize: 16
             }}
           >
             T-Stop
@@ -79,7 +78,7 @@ export default class Output extends React.Component {
             style={{
               flex: 1,
               fontWeight: 'bold',
-              fontSize: 18
+              fontSize: 16
             }}
           >
             Reading
@@ -101,7 +100,7 @@ export default class Output extends React.Component {
                   style={{
                     flex: 1,
                     color: 'grey',
-                    fontSize: 18,
+                    fontSize: 13,
                     fontWeight: 'bold'
                   }}
                 >
@@ -111,7 +110,7 @@ export default class Output extends React.Component {
                   style={{
                     flex: 1,
                     color: 'grey',
-                    fontSize: 18
+                    fontSize: 13
                   }}
                 >
                   {item.Reading(

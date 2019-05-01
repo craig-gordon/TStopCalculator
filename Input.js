@@ -16,44 +16,51 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingVertical: 0,
+    paddingHorizontal: 30
   },
-  button: { alignItems: 'center', backgroundColor: '#DDDDDD', padding: 10 }
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10
+  }
 });
 
 export default class Input extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      calibrationStop: '1.0',
-      calibrationIndex: '0',
-      calibrationReading: '',
-      maxApertureReading: '',
-      data
-    };
-  }
+  state = {
+    calibrationStop: '1.0',
+    calibrationIndex: '0',
+    calibrationReading: '',
+    maxApertureReading: '',
+    data
+  };
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         <View
           style={{
             alignItems: 'center',
-            paddingTop: 30,
-            paddingBottom: 30
+            marginBottom: 50
           }}
         >
           <Image
             style={{
-              width: 170,
-              height: 35
+              width: 240,
+              height: 50
             }}
             source={require('./assets/zerooptik_logo.jpeg')}
           />
         </View>
 
-        <View style={{ flexDirection: 'row' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 10
+          }}
+        >
           <Text
             style={{
               flex: 1,
@@ -64,7 +71,7 @@ export default class Input extends React.Component {
             Calibration Stop
           </Text>
           <Picker
-            itemStyle={{ height: 44 }}
+            itemStyle={{ height: 40 }}
             selectedValue={this.state.calibrationStop}
             style={{ flex: 1 }}
             onValueChange={(calibrationStop, index) =>
@@ -77,10 +84,10 @@ export default class Input extends React.Component {
           </Picker>
         </View>
 
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', marginBottom: 20 }}>
           <Text
             style={{
-              flex: 1,
+              flex: 2,
               fontWeight: 'bold',
               fontSize: 18
             }}
@@ -103,7 +110,7 @@ export default class Input extends React.Component {
         <View style={{ flexDirection: 'row', paddingBottom: 40 }}>
           <Text
             style={{
-              flex: 1,
+              flex: 2,
               fontWeight: 'bold',
               fontSize: 18
             }}
@@ -142,7 +149,7 @@ export default class Input extends React.Component {
         </Text>
         <TouchableOpacity
           style={{ alignItems: 'center', paddingTop: 50 }}
-          title='Go see output'
+          title='See output'
           onPress={() =>
             this.props.navigation.navigate('Output', { state: this.state })
           }
