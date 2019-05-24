@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 
 export default class Splash extends React.Component {
   componentDidMount() {
-    setTimeout(() => this.props.navigation.navigate('Input'), 2500);
+    setTimeout(() => this.props.navigation.navigate('Input'), 500);
   }
 
   render() {

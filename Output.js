@@ -1,15 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import { data } from './data.js';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: '#404041'
   },
-  button: { alignItems: 'center', backgroundColor: '#DDDDDD', padding: 10 }
+  topLabel: {
+    fontWeight: 'bold',
+    alignItems: 'center',
+    fontSize: 14,
+    color: '#FEFEFE'
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10
+  }
 });
 
 export default class Output extends React.Component {
@@ -19,32 +27,35 @@ export default class Output extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View
+          style={{
+            alignItems: 'center',
+            marginTop: 50,
+            marginBottom: 50
+          }}
+        >
+          <Image
+            style={{
+              width: 240,
+              height: 50
+            }}
+            source={require('./assets/zerooptik_logo.jpeg')}
+          />
+        </View>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-evenly',
-            paddingTop: 40,
             paddingBottom: 20
           }}
         >
-          <Text
-            style={{
-              fontWeight: 'bold',
-              alignItems: 'center',
-              fontSize: 14
-            }}
-          >
+          <Text style={styles.topLabel}>
             {' '}
             Max Aperture Reading
             {` ${this.state.maxApertureReading}`}
           </Text>
-          <Text
-            style={{
-              fontWeight: 'bold',
-              fontSize: 14
-            }}
-          >
+          <Text style={styles.topLabel}>
             Max T-Stop Calculation
             {this.state.maxApertureReading > 0
               ? ` ${Math.sqrt(
@@ -60,7 +71,6 @@ export default class Output extends React.Component {
           style={{
             flexDirection: 'row',
             alignItems: 'flex-start',
-            backgroundColor: '#D1D1D1',
             marginBottom: 5
           }}
         >
@@ -69,6 +79,7 @@ export default class Output extends React.Component {
               flex: 1,
               fontWeight: 'bold',
               marginLeft: 80,
+              color: '#FEFEFE',
               fontSize: 16
             }}
           >
@@ -78,18 +89,25 @@ export default class Output extends React.Component {
             style={{
               flex: 1,
               fontWeight: 'bold',
+              color: '#FEFEFE',
               fontSize: 16
             }}
           >
-            Reading
+            Target Reading
           </Text>
         </View>
+        <View
+          style={{
+            borderBottomColor: '#FEFEFE',
+            borderBottomWidth: 1,
+            marginLeft: 50,
+            marginRight: 50,
+            marginBottom: 2
+          }}
+        />
         <ScrollView>
-          {data.map(item => (
-            <View
-              key={item.TStop}
-              style={{ borderBottomColor: '#F5F5F5', borderBottomWidth: 1 }}
-            >
+          {data.map((item, idx) => (
+            <View key={item.TStop}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -99,7 +117,7 @@ export default class Output extends React.Component {
                 <Text
                   style={{
                     flex: 1,
-                    color: 'grey',
+                    color: idx % 3 === 0 ? '#FEFEFE' : '#ED1C24',
                     fontSize: 13,
                     fontWeight: 'bold'
                   }}
@@ -109,7 +127,7 @@ export default class Output extends React.Component {
                 <Text
                   style={{
                     flex: 1,
-                    color: 'grey',
+                    color: '#FEFEFE',
                     fontSize: 13
                   }}
                 >

@@ -14,11 +14,23 @@ import {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#404041',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 0,
     paddingHorizontal: 30
+  },
+  topView: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginBottom: 20
+  },
+  topLabel: {
+    flex: 2,
+    color: '#FEFEFE',
+    fontWeight: 'bold',
+    fontSize: 18
   },
   button: {
     alignItems: 'center',
@@ -54,26 +66,19 @@ export default class Input extends React.Component {
           />
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 10
-          }}
-        >
-          <Text
+        <View style={styles.topView}>
+          <Text style={styles.topLabel}>Calibration Stop</Text>
+          <Picker
+            itemStyle={{
+              height: 20
+            }}
+            selectedValue={this.state.calibrationStop}
             style={{
               flex: 1,
-              fontWeight: 'bold',
-              fontSize: 18
+              color: '#C7C7CD',
+              backgroundColor: 'transparent'
             }}
-          >
-            Calibration Stop
-          </Text>
-          <Picker
-            itemStyle={{ height: 40 }}
-            selectedValue={this.state.calibrationStop}
-            style={{ flex: 1 }}
+            mode='dropdown'
             onValueChange={(calibrationStop, index) =>
               this.setState({ calibrationStop, calibrationIndex: index })
             }
@@ -84,21 +89,15 @@ export default class Input extends React.Component {
           </Picker>
         </View>
 
-        <View style={{ flexDirection: 'row', marginBottom: 20 }}>
-          <Text
-            style={{
-              flex: 2,
-              fontWeight: 'bold',
-              fontSize: 18
-            }}
-          >
-            Calibration Reading
-          </Text>
+        <View style={styles.topView}>
+          <Text style={styles.topLabel}>Calibration Reading</Text>
           <TextInput
             style={{
               flex: 1,
-              fontSize: 18
+              fontSize: 18,
+              color: '#C7C7CD'
             }}
+            keyboardType='numeric'
             onChangeText={calibrationReading => {
               this.setState({ calibrationReading });
             }}
@@ -107,21 +106,15 @@ export default class Input extends React.Component {
           />
         </View>
 
-        <View style={{ flexDirection: 'row', paddingBottom: 40 }}>
-          <Text
-            style={{
-              flex: 2,
-              fontWeight: 'bold',
-              fontSize: 18
-            }}
-          >
-            MAX Aperture Reading
-          </Text>
+        <View style={styles.topView}>
+          <Text style={styles.topLabel}>MAX Aperture Reading</Text>
           <TextInput
             style={{
               flex: 0.8,
-              fontSize: 18
+              fontSize: 18,
+              color: '#C7C7CD'
             }}
+            keyboardType='numeric'
             onChangeText={maxApertureReading => {
               this.setState({ maxApertureReading });
             }}
