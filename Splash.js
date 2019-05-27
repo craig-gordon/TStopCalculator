@@ -10,15 +10,14 @@ const styles = StyleSheet.create({
   },
   header1: {
     color: '#FFFFFF',
-    fontWeight: 'bold',
-    fontSize: 48,
-    marginBottom: 0,
-    paddingBottom: 0
+    fontFamily: 'zero-optik',
+    fontSize: 48
   },
   header2: {
     color: '#FFFFFF',
+    fontFamily: 'zero-optik',
     fontSize: 48,
-    marginBottom: 30
+    marginBottom: 40
   },
   subheader: {
     color: '#FFFFFF',
@@ -36,7 +35,7 @@ export default class Splash extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.header1}>ZERO</Text>
-        <Text style={styles.header2}>OPTIK</Text>
+        <Text style={styles.header2}>optik</Text>
         <Text style={styles.subheader}>T-STOP CALCULATOR</Text>
       </View>
     );

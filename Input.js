@@ -20,6 +20,11 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingHorizontal: 30
   },
+  logo: {
+    color: '#FFFFFF',
+    fontFamily: 'zero-optik',
+    fontSize: 36
+  },
   topView: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -27,6 +32,7 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   topLabel: {
+    fontFamily: 'din-round',
     flex: 2,
     color: '#FEFEFE',
     fontWeight: 'bold',
@@ -53,17 +59,13 @@ export default class Input extends React.Component {
       <View style={styles.container}>
         <View
           style={{
+            flexDirection: 'row',
             alignItems: 'center',
             marginBottom: 50
           }}
         >
-          <Image
-            style={{
-              width: 240,
-              height: 50
-            }}
-            source={require('./assets/zerooptik_logo.jpeg')}
-          />
+          <Text style={styles.logo}>ZERO</Text>
+          <Text style={styles.logo}>optik</Text>
         </View>
 
         <View style={styles.topView}>

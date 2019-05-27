@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { data } from './data.js';
 
 const styles = StyleSheet.create({
@@ -7,7 +7,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#404041'
   },
+  logo: {
+    color: '#FFFFFF',
+    fontFamily: 'zero-optik',
+    fontSize: 36
+  },
   topLabel: {
+    fontFamily: 'din-round',
     fontWeight: 'bold',
     alignItems: 'center',
     fontSize: 14,
@@ -30,18 +36,14 @@ export default class Output extends React.Component {
       <View style={styles.container}>
         <View
           style={{
-            alignItems: 'center',
-            marginTop: 50,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 100,
             marginBottom: 50
           }}
         >
-          <Image
-            style={{
-              width: 240,
-              height: 50
-            }}
-            source={require('./assets/zerooptik_logo.jpeg')}
-          />
+          <Text style={styles.logo}>ZERO</Text>
+          <Text style={styles.logo}>optik</Text>
         </View>
         <View
           style={{
@@ -78,7 +80,7 @@ export default class Output extends React.Component {
             style={{
               flex: 1,
               fontWeight: 'bold',
-              marginLeft: 80,
+              marginLeft: 72,
               color: '#FEFEFE',
               fontSize: 16
             }}
@@ -89,6 +91,7 @@ export default class Output extends React.Component {
             style={{
               flex: 1,
               fontWeight: 'bold',
+              marginRight: 80,
               color: '#FEFEFE',
               fontSize: 16
             }}
@@ -101,7 +104,7 @@ export default class Output extends React.Component {
             borderBottomColor: '#FEFEFE',
             borderBottomWidth: 1,
             marginLeft: 50,
-            marginRight: 50,
+            marginRight: 60,
             marginBottom: 2
           }}
         />

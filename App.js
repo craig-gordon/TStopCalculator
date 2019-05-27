@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Font } from 'expo';
 import { createAppContainer } from 'react-navigation';
 import AppNavigator from './AppNavigator';
 
@@ -25,10 +26,23 @@ const styles = StyleSheet.create({
 const AppContainer = createAppContainer(AppNavigator);
 
 class App extends Component {
+  state = {
+    fontLoaded: false
+  };
+
+  async componentDidMount() {
+    await Font.loadAsync({
+      'zero-optik': require('./assets/fonts/ZeroOptik.ttf'),
+      'din-round': require('./assets/fonts/DINRoundOT.otf')
+    });
+
+    this.setState({ fontLoaded: true });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <AppContainer />
+        {this.state.fontLoaded ? <AppContainer /> : null}
       </View>
     );
   }

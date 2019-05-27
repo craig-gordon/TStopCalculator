@@ -5,6 +5,9 @@
     "name": "TStopCalculator",
     "slug": "t-stop-calculator",
     "sdkVersion": "32.0.0",
-    "privacy": "public"
+    "privacy": "public",
+    "packagerOpts": {
+      "assetExts": ["ttf", "otf"]
+    }
   }
 }
