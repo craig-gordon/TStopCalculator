@@ -1,6 +1,6 @@
 import React from 'react';
 import { data, fStops } from './data.js';
-
+import { AntDesign } from '@expo/vector-icons';
 import {
   View,
   Text,
@@ -8,7 +8,8 @@ import {
   Image,
   Picker,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  Animated
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -35,7 +36,6 @@ const styles = StyleSheet.create({
     fontFamily: 'din-round',
     flex: 2,
     color: '#FEFEFE',
-    fontWeight: 'bold',
     fontSize: 18
   },
   button: {
@@ -51,24 +51,34 @@ export default class Input extends React.Component {
     calibrationIndex: '0',
     calibrationReading: '',
     maxApertureReading: '',
-    data
+    data,
+    opacity: new Animated.Value(0)
   };
 
+  componentDidMount() {
+    Animated.spring(this.state.opacity, {
+      toValue: 1,
+      duration: 300
+    }).start();
+  }
+
   render() {
+    const { opacity } = this.state;
     return (
       <View style={styles.container}>
-        <View
+        <Animated.View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            marginBottom: 50
+            marginBottom: 50,
+            opacity
           }}
         >
           <Text style={styles.logo}>ZERO</Text>
           <Text style={styles.logo}>optik</Text>
-        </View>
+        </Animated.View>
 
-        <View style={styles.topView}>
+        <Animated.View style={{ ...styles.topView, opacity }}>
           <Text style={styles.topLabel}>Calibration Stop</Text>
           <Picker
             itemStyle={{
@@ -89,9 +99,9 @@ export default class Input extends React.Component {
               <Picker.Item key={fstop} label={fstop} value={fstop} />
             ))}
           </Picker>
-        </View>
+        </Animated.View>
 
-        <View style={styles.topView}>
+        <Animated.View style={{ ...styles.topView, opacity }}>
           <Text style={styles.topLabel}>Calibration Reading</Text>
           <TextInput
             style={{
@@ -106,9 +116,9 @@ export default class Input extends React.Component {
             value={this.state.calibrationReading}
             placeholder='0'
           />
-        </View>
+        </Animated.View>
 
-        <View style={styles.topView}>
+        <Animated.View style={{ ...styles.topView, opacity }}>
           <Text style={styles.topLabel}>MAX Aperture Reading</Text>
           <TextInput
             style={{
@@ -123,13 +133,14 @@ export default class Input extends React.Component {
             value={this.state.maxApertureReading}
             placeholder='0'
           />
-        </View>
+        </Animated.View>
 
-        <Text
+        <Animated.Text
           style={{
             color: 'grey',
-            fontWeight: 'bold',
-            fontSize: 18
+            fontFamily: 'din-round',
+            fontSize: 18,
+            opacity
           }}
         >
           Max T-Stop Calculation
@@ -141,19 +152,15 @@ export default class Input extends React.Component {
                 ) / this.state.maxApertureReading
               ).toFixed(3)}`
             : null}
-        </Text>
-        <TouchableOpacity
-          style={{ alignItems: 'center', paddingTop: 50 }}
-          title='See output'
+        </Animated.Text>
+        <AntDesign
+          name='calculator'
+          size={35}
+          color='#FFFFFF'
           onPress={() =>
             this.props.navigation.navigate('Output', { state: this.state })
           }
-        >
-          <Image
-            style={styles.button}
-            source={require('./assets/button_see-output.png')}
-          />
-        </TouchableOpacity>
+        />
       </View>
     );
   }

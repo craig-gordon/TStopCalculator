@@ -1,17 +1,10 @@
 import { Easing, Animated } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import Splash from './Splash';
 import Input from './Input';
 import Output from './Output';
 
 const AppNavigator = createStackNavigator(
   {
-    Splash: {
-      screen: Splash,
-      navigationOptions: {
-        header: null
-      }
-    },
     Input: {
       screen: Input,
       navigationOptions: {
@@ -26,7 +19,7 @@ const AppNavigator = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Splash',
+    initialRouteName: 'Input',
     transitionConfig: () => {
       return {
         transitionSpec: {
