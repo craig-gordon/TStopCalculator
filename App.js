@@ -33,7 +33,7 @@ class App extends Component {
     await Font.loadAsync({
       'zero-optik': require('./assets/fonts/ZeroOptik.ttf'),
       'din-round': require('./assets/fonts/DINRoundOT.ttf'),
-      // 'din-round-bold': require('./assets/fonts/din-round-bold.ttf'),
+      'din-round-bold': require('./assets/fonts/din-round-bold.ttf'),
       ...AntDesign.font
     });
 

@@ -22,15 +22,14 @@ const styles = StyleSheet.create({
     fontSize: 36
   },
   topLabel: {
-    fontFamily: 'din-round',
-    alignItems: 'center',
-    fontSize: 18,
+    fontFamily: 'din-round-bold',
+    fontSize: 15,
     color: '#FEFEFE'
   },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10
+  topValue: {
+    fontFamily: 'din-round',
+    fontSize: 15,
+    color: '#FEFEFE'
   }
 });
 
@@ -64,7 +63,7 @@ export default class Output extends React.Component {
         >
           <AntDesign
             name='camera'
-            size={35}
+            size={40}
             color='#FFFFFF'
             onPress={async () => {
               const { status } = await Permissions.askAsync(
@@ -91,25 +90,99 @@ export default class Output extends React.Component {
             style={{
               flexDirection: 'row',
               justifyContent: 'space-evenly',
+              flexWrap: 'wrap',
               paddingBottom: 20
             }}
           >
-            <Text style={styles.topLabel}>
-              {' '}
-              Max Aperture Reading
-              {` ${this.state.maxApertureReading}`}
-            </Text>
-            <Text style={styles.topLabel}>
-              Max T-Stop Calculation
-              {this.state.maxApertureReading > 0
-                ? ` ${Math.sqrt(
-                    this.state.data[0].Reading(
-                      this.state.calibrationReading,
-                      this.state.calibrationIndex
-                    ) / this.state.maxApertureReading
-                  ).toFixed(3)}`
-                : null}
-            </Text>
+            <View
+              style={{
+                alignItems: 'center',
+                marginLeft: 10,
+                marginRight: 10
+              }}
+            >
+              <Text style={styles.topLabel}>Max Aperture Reading</Text>
+              <Text style={styles.topValue}>
+                {this.state.maxApertureReading}
+              </Text>
+            </View>
+            <View
+              style={{
+                marginBottom: 15,
+                alignItems: 'center'
+              }}
+            >
+              <Text style={styles.topLabel}>Max T-Stop Calculation</Text>
+              <Text style={styles.topValue}>
+                {this.state.maxApertureReading > 0
+                  ? ` ${Math.sqrt(
+                      this.state.data[0].Reading(
+                        this.state.calibrationReading,
+                        this.state.calibrationIndex
+                      ) / this.state.maxApertureReading
+                    ).toFixed(3)}`
+                  : null}
+              </Text>
+            </View>
+            {this.state.lensManufacturer === '' ? null : (
+              <View
+                style={{
+                  marginBottom: 15,
+                  alignItems: 'center'
+                }}
+              >
+                <Text style={styles.topLabel}>Lens Manufacturer</Text>
+                <Text style={styles.topValue}>
+                  {this.state.lensManufacturer}
+                </Text>
+              </View>
+            )}
+            {this.state.lensSeries === '' ? null : (
+              <View
+                style={{
+                  marginBottom: 15,
+                  alignItems: 'center'
+                }}
+              >
+                <Text style={styles.topLabel}>Lens Series</Text>
+                <Text style={styles.topValue}>{this.state.lensSeries}</Text>
+              </View>
+            )}
+            {this.state.nominalMaxAperture === '0' ? null : (
+              <View
+                style={{
+                  marginBottom: 15,
+                  alignItems: 'center'
+                }}
+              >
+                <Text style={styles.topLabel}>Nominal Max Aperture</Text>
+                <Text style={styles.topValue}>
+                  {this.state.nominalMaxAperture}
+                </Text>
+              </View>
+            )}
+            {this.state.focalLength === '0' ? null : (
+              <View
+                style={{
+                  marginBottom: 15,
+                  alignItems: 'center'
+                }}
+              >
+                <Text style={styles.topLabel}>Focal Length</Text>
+                <Text style={styles.topValue}>{this.state.focalLength}</Text>
+              </View>
+            )}
+            {this.state.lensSerial === '' ? null : (
+              <View
+                style={{
+                  marginBottom: 15,
+                  alignItems: 'center'
+                }}
+              >
+                <Text style={styles.topLabel}>Lens Serial</Text>
+                <Text style={styles.topValue}>{this.state.lensSerial}</Text>
+              </View>
+            )}
           </View>
           <View
             style={{
@@ -121,10 +194,10 @@ export default class Output extends React.Component {
             <Text
               style={{
                 flex: 1,
-                fontWeight: 'bold',
                 marginLeft: 72,
                 color: '#FEFEFE',
-                fontSize: 16
+                fontSize: 16,
+                fontFamily: 'din-round-bold'
               }}
             >
               T-Stop
@@ -132,10 +205,10 @@ export default class Output extends React.Component {
             <Text
               style={{
                 flex: 1,
-                fontWeight: 'bold',
                 marginRight: 80,
                 color: '#FEFEFE',
-                fontSize: 16
+                fontSize: 16,
+                fontFamily: 'din-round-bold'
               }}
             >
               Target Reading
@@ -167,7 +240,7 @@ export default class Output extends React.Component {
                       fontWeight: 'bold'
                     }}
                   >
-                    {item.TStop}
+                    {item.TStop.toPrecision(4)}
                   </Text>
                   <Text
                     style={{

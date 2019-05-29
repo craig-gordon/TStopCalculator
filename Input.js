@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 0,
-    paddingHorizontal: 30
+    paddingHorizontal: 50
   },
   logo: {
     color: '#FFFFFF',
@@ -30,11 +30,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginBottom: 20
+    justifyContent: 'space-between',
+    marginBottom: 15
   },
   topLabel: {
     fontFamily: 'din-round',
-    flex: 2,
+    flex: 1,
     color: '#FEFEFE',
     fontSize: 18
   },
@@ -51,6 +52,11 @@ export default class Input extends React.Component {
     calibrationIndex: '0',
     calibrationReading: '',
     maxApertureReading: '',
+    lensManufacturer: '',
+    lensSeries: '',
+    focalLength: '0',
+    nominalMaxAperture: '0',
+    lensSerial: '',
     data,
     opacity: new Animated.Value(0)
   };
@@ -78,7 +84,7 @@ export default class Input extends React.Component {
           <Text style={styles.logo}>optik</Text>
         </Animated.View>
 
-        <Animated.View style={{ ...styles.topView, opacity }}>
+        <Animated.View style={{ ...styles.topView, marginBottom: 5, opacity }}>
           <Text style={styles.topLabel}>Calibration Stop</Text>
           <Picker
             itemStyle={{
@@ -86,7 +92,8 @@ export default class Input extends React.Component {
             }}
             selectedValue={this.state.calibrationStop}
             style={{
-              flex: 1,
+              flex: null,
+              width: 56,
               color: '#C7C7CD',
               backgroundColor: 'transparent'
             }}
@@ -105,7 +112,6 @@ export default class Input extends React.Component {
           <Text style={styles.topLabel}>Calibration Reading</Text>
           <TextInput
             style={{
-              flex: 1,
               fontSize: 18,
               color: '#C7C7CD'
             }}
@@ -118,11 +124,10 @@ export default class Input extends React.Component {
           />
         </Animated.View>
 
-        <Animated.View style={{ ...styles.topView, opacity }}>
+        <Animated.View style={{ ...styles.topView, marginBottom: 50, opacity }}>
           <Text style={styles.topLabel}>MAX Aperture Reading</Text>
           <TextInput
             style={{
-              flex: 0.8,
               fontSize: 18,
               color: '#C7C7CD'
             }}
@@ -135,7 +140,7 @@ export default class Input extends React.Component {
           />
         </Animated.View>
 
-        <Animated.Text
+        {/* <Animated.Text
           style={{
             color: 'grey',
             fontFamily: 'din-round',
@@ -152,10 +157,88 @@ export default class Input extends React.Component {
                 ) / this.state.maxApertureReading
               ).toFixed(3)}`
             : null}
-        </Animated.Text>
+        </Animated.Text> */}
+
+        <Animated.View style={{ ...styles.topView, opacity }}>
+          <Text style={styles.topLabel}>Lens Manufacturer</Text>
+          <TextInput
+            style={{
+              fontSize: 18,
+              color: '#C7C7CD'
+            }}
+            onChangeText={lensManufacturer => {
+              this.setState({ lensManufacturer });
+            }}
+            value={this.state.lensManufacturer}
+            placeholder='none'
+          />
+        </Animated.View>
+
+        <Animated.View style={{ ...styles.topView, opacity }}>
+          <Text style={styles.topLabel}>Lens Series</Text>
+          <TextInput
+            style={{
+              fontSize: 18,
+              color: '#C7C7CD'
+            }}
+            onChangeText={lensSeries => {
+              this.setState({ lensSeries });
+            }}
+            value={this.state.lensSeries}
+            placeholder='none'
+          />
+        </Animated.View>
+
+        <Animated.View style={{ ...styles.topView, opacity }}>
+          <Text style={styles.topLabel}>Nominal Max Aperture</Text>
+          <TextInput
+            style={{
+              fontSize: 18,
+              color: '#C7C7CD'
+            }}
+            keyboardType='numeric'
+            onChangeText={nominalMaxAperture => {
+              this.setState({ nominalMaxAperture });
+            }}
+            value={this.state.nominalMaxAperture}
+            placeholder='0'
+          />
+        </Animated.View>
+
+        <Animated.View style={{ ...styles.topView, opacity }}>
+          <Text style={styles.topLabel}>Focal Length</Text>
+          <TextInput
+            style={{
+              fontSize: 18,
+              color: '#C7C7CD'
+            }}
+            keyboardType='numeric'
+            onChangeText={focalLength => {
+              this.setState({ focalLength });
+            }}
+            value={this.state.focalLength}
+            placeholder='0'
+          />
+        </Animated.View>
+
+        <Animated.View style={{ ...styles.topView, marginBottom: 50, opacity }}>
+          <Text style={styles.topLabel}>Lens Serial</Text>
+          <TextInput
+            style={{
+              fontSize: 18,
+              color: '#C7C7CD'
+            }}
+            onChangeText={lensSerial => {
+              this.setState({ lensSerial });
+            }}
+            value={this.state.lensSerial}
+            placeholder='none'
+          />
+        </Animated.View>
+
         <AntDesign
           name='calculator'
-          size={35}
+          size={40}
           color='#FFFFFF'
           onPress={() =>
             this.props.navigation.navigate('Output', { state: this.state })
