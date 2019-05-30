@@ -1,11 +1,9 @@
 import React from 'react';
 import { data, fStops } from './data.js';
-import { AntDesign } from '@expo/vector-icons';
 import {
   View,
   Text,
   TextInput,
-  Image,
   Picker,
   TouchableOpacity,
   StyleSheet,
@@ -40,22 +38,21 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10
+    borderColor: '#FFFFFF',
+    borderWidth: 2
   }
 });
 
 export default class Input extends React.Component {
   state = {
     calibrationStop: '1.0',
-    calibrationIndex: '0',
+    calibrationIndex: '',
     calibrationReading: '',
     maxApertureReading: '',
     lensManufacturer: '',
     lensSeries: '',
-    focalLength: '0',
-    nominalMaxAperture: '0',
+    focalLength: '',
+    nominalMaxAperture: '',
     lensSerial: '',
     data,
     opacity: new Animated.Value(0)
@@ -67,6 +64,17 @@ export default class Input extends React.Component {
       duration: 300
     }).start();
   }
+
+  shouldCalcBeDisabled = () => {
+    return (
+      this.state.calibrationReading === '' ||
+      this.state.maxApertureReading === ''
+    );
+  };
+
+  determineOpacity = stateValue => {
+    return stateValue === '' ? 0.4 : 1;
+  };
 
   render() {
     const { opacity } = this.state;
@@ -87,15 +95,13 @@ export default class Input extends React.Component {
         <Animated.View style={{ ...styles.topView, marginBottom: 5, opacity }}>
           <Text style={styles.topLabel}>Calibration Stop</Text>
           <Picker
-            itemStyle={{
-              height: 20
-            }}
             selectedValue={this.state.calibrationStop}
             style={{
               flex: null,
               width: 56,
               color: '#C7C7CD',
-              backgroundColor: 'transparent'
+              backgroundColor: 'transparent',
+              transform: [{ translateX: 8 }]
             }}
             mode='dropdown'
             onValueChange={(calibrationStop, index) =>
@@ -113,7 +119,10 @@ export default class Input extends React.Component {
           <TextInput
             style={{
               fontSize: 18,
-              color: '#C7C7CD'
+              color: '#C7C7CD',
+              textAlign: 'right',
+              opacity: this.determineOpacity(this.state.calibrationReading),
+              width: 100
             }}
             keyboardType='numeric'
             onChangeText={calibrationReading => {
@@ -129,7 +138,10 @@ export default class Input extends React.Component {
           <TextInput
             style={{
               fontSize: 18,
-              color: '#C7C7CD'
+              color: '#C7C7CD',
+              textAlign: 'right',
+              opacity: this.determineOpacity(this.state.maxApertureReading),
+              width: 100
             }}
             keyboardType='numeric'
             onChangeText={maxApertureReading => {
@@ -140,31 +152,15 @@ export default class Input extends React.Component {
           />
         </Animated.View>
 
-        {/* <Animated.Text
-          style={{
-            color: 'grey',
-            fontFamily: 'din-round',
-            fontSize: 18,
-            opacity
-          }}
-        >
-          Max T-Stop Calculation
-          {this.state.maxApertureReading > 0
-            ? ` ${Math.sqrt(
-                this.state.data[0].Reading(
-                  this.state.calibrationReading,
-                  this.state.calibrationIndex
-                ) / this.state.maxApertureReading
-              ).toFixed(3)}`
-            : null}
-        </Animated.Text> */}
-
         <Animated.View style={{ ...styles.topView, opacity }}>
           <Text style={styles.topLabel}>Lens Manufacturer</Text>
           <TextInput
             style={{
               fontSize: 18,
-              color: '#C7C7CD'
+              color: '#C7C7CD',
+              textAlign: 'right',
+              opacity: this.determineOpacity(this.state.lensManufacturer),
+              width: 100
             }}
             onChangeText={lensManufacturer => {
               this.setState({ lensManufacturer });
@@ -179,7 +175,10 @@ export default class Input extends React.Component {
           <TextInput
             style={{
               fontSize: 18,
-              color: '#C7C7CD'
+              color: '#C7C7CD',
+              textAlign: 'right',
+              opacity: this.determineOpacity(this.state.lensSeries),
+              width: 100
             }}
             onChangeText={lensSeries => {
               this.setState({ lensSeries });
@@ -194,7 +193,10 @@ export default class Input extends React.Component {
           <TextInput
             style={{
               fontSize: 18,
-              color: '#C7C7CD'
+              color: '#C7C7CD',
+              textAlign: 'right',
+              opacity: this.determineOpacity(this.state.nominalMaxAperture),
+              width: 100
             }}
             keyboardType='numeric'
             onChangeText={nominalMaxAperture => {
@@ -210,7 +212,10 @@ export default class Input extends React.Component {
           <TextInput
             style={{
               fontSize: 18,
-              color: '#C7C7CD'
+              color: '#C7C7CD',
+              textAlign: 'right',
+              opacity: this.determineOpacity(this.state.focalLength),
+              width: 100
             }}
             keyboardType='numeric'
             onChangeText={focalLength => {
@@ -226,7 +231,10 @@ export default class Input extends React.Component {
           <TextInput
             style={{
               fontSize: 18,
-              color: '#C7C7CD'
+              color: '#C7C7CD',
+              textAlign: 'right',
+              opacity: this.determineOpacity(this.state.lensSerial),
+              width: 100
             }}
             onChangeText={lensSerial => {
               this.setState({ lensSerial });
@@ -236,14 +244,26 @@ export default class Input extends React.Component {
           />
         </Animated.View>
 
-        <AntDesign
-          name='calculator'
-          size={40}
-          color='#FFFFFF'
+        <TouchableOpacity
+          disabled={this.shouldCalcBeDisabled()}
+          style={{
+            ...styles.button,
+            opacity: this.shouldCalcBeDisabled() ? 0.4 : 1
+          }}
           onPress={() =>
             this.props.navigation.navigate('Output', { state: this.state })
           }
-        />
+        >
+          <Text
+            style={{
+              fontFamily: 'din-round-bold',
+              padding: 10,
+              color: '#FFFFFF'
+            }}
+          >
+            Calculate
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }

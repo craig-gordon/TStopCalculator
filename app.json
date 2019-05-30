@@ -1,13 +1,14 @@
 {
-  "name": "TStopCalculator",
+  "name": "T-Stop Calculator",
   "displayName": "TStopCalculator",
   "expo": {
-    "name": "TStopCalculator",
+    "name": "T-Stop Calculator",
     "slug": "t-stop-calculator",
     "sdkVersion": "32.0.0",
+    "version": "1.0.0",
     "privacy": "public",
-    "packagerOpts": {
-      "assetExts": ["ttf", "otf"]
-    }
+    "platforms": ["android", "ios"],
+    "description": "Zero Optik T-Stop Calculator",
+    "githubUrl": "https://github.com/craig-gordon/TStopCalculator"
   }
 }

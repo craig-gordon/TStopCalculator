@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Animated } from 'react-native';
-import { Font, SplashScreen, Svg } from 'expo';
-import { AntDesign } from '@expo/vector-icons';
+import { Font, Svg } from 'expo';
 import { createAppContainer } from 'react-navigation';
 import AppNavigator from './AppNavigator';
-import Splash from './Splash';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,8 +31,7 @@ class App extends Component {
     await Font.loadAsync({
       'zero-optik': require('./assets/fonts/ZeroOptik.ttf'),
       'din-round': require('./assets/fonts/DINRoundOT.ttf'),
-      'din-round-bold': require('./assets/fonts/din-round-bold.ttf'),
-      ...AntDesign.font
+      'din-round-bold': require('./assets/fonts/din-round-bold.ttf')
     });
 
     Animated.timing(this.state.splashOpacity, {

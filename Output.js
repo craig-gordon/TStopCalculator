@@ -4,11 +4,10 @@ import {
   Text,
   View,
   ScrollView,
-  Button,
+  TouchableOpacity,
   CameraRoll
 } from 'react-native';
 import { takeSnapshotAsync, Permissions } from 'expo';
-import { AntDesign } from '@expo/vector-icons';
 import { data } from './data.js';
 
 const styles = StyleSheet.create({
@@ -45,43 +44,6 @@ export default class Output extends React.Component {
         style={{ ...styles.container, opacity: this.props.appOpacity }}
       >
         <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginTop: 100,
-            marginBottom: 20
-          }}
-        >
-          <Text style={styles.logo}>ZERO</Text>
-          <Text style={styles.logo}>optik</Text>
-        </View>
-        <View
-          style={{
-            alignItems: 'center',
-            marginBottom: 30
-          }}
-        >
-          <AntDesign
-            name='camera'
-            size={40}
-            color='#FFFFFF'
-            onPress={async () => {
-              const { status } = await Permissions.askAsync(
-                Permissions.CAMERA_ROLL
-              );
-              if (status === 'granted') {
-                const screenshot = await takeSnapshotAsync(this.info);
-                const newScreenshotURI = await CameraRoll.saveToCameraRoll(
-                  screenshot
-                );
-                return newScreenshotURI;
-              } else {
-                throw new Error('Camera Roll permission not granted');
-              }
-            }}
-          />
-        </View>
-        <View
           ref={view => (this.info = view)}
           style={{ flex: 1 }}
           collapsable={false}
@@ -89,16 +51,27 @@ export default class Output extends React.Component {
           <View
             style={{
               flexDirection: 'row',
+              justifyContent: 'center',
+              marginTop: 100,
+              marginBottom: 40
+            }}
+          >
+            <Text style={styles.logo}>ZERO</Text>
+            <Text style={styles.logo}>optik</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
               justifyContent: 'space-evenly',
               flexWrap: 'wrap',
-              paddingBottom: 20
+              paddingBottom: 15
             }}
           >
             <View
               style={{
                 alignItems: 'center',
-                marginLeft: 10,
-                marginRight: 10
+                marginLeft: 5,
+                marginRight: 5
               }}
             >
               <Text style={styles.topLabel}>Max Aperture Reading</Text>
@@ -148,7 +121,7 @@ export default class Output extends React.Component {
                 <Text style={styles.topValue}>{this.state.lensSeries}</Text>
               </View>
             )}
-            {this.state.nominalMaxAperture === '0' ? null : (
+            {this.state.nominalMaxAperture === '' ? null : (
               <View
                 style={{
                   marginBottom: 15,
@@ -161,7 +134,7 @@ export default class Output extends React.Component {
                 </Text>
               </View>
             )}
-            {this.state.focalLength === '0' ? null : (
+            {this.state.focalLength === '' ? null : (
               <View
                 style={{
                   marginBottom: 15,
@@ -186,6 +159,45 @@ export default class Output extends React.Component {
           </View>
           <View
             style={{
+              alignItems: 'center',
+              marginBottom: 30
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                borderColor: '#FFFFFF',
+                borderWidth: 2
+              }}
+              onPress={async () => {
+                const { status } = await Permissions.askAsync(
+                  Permissions.CAMERA_ROLL
+                );
+                if (status === 'granted') {
+                  const screenshot = await takeSnapshotAsync(this.info, {
+                    format: 'jpg'
+                  });
+                  const newScreenshotURI = await CameraRoll.saveToCameraRoll(
+                    screenshot
+                  );
+                  return newScreenshotURI;
+                } else {
+                  throw new Error('Camera Roll permission not granted');
+                }
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: 'din-round-bold',
+                  padding: 10,
+                  color: '#FFFFFF'
+                }}
+              >
+                Screenshot
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
               flexDirection: 'row',
               alignItems: 'flex-start',
               marginBottom: 5
@@ -194,7 +206,7 @@ export default class Output extends React.Component {
             <Text
               style={{
                 flex: 1,
-                marginLeft: 72,
+                marginLeft: 81,
                 color: '#FEFEFE',
                 fontSize: 16,
                 fontFamily: 'din-round-bold'
@@ -205,7 +217,7 @@ export default class Output extends React.Component {
             <Text
               style={{
                 flex: 1,
-                marginRight: 80,
+                marginRight: 60,
                 color: '#FEFEFE',
                 fontSize: 16,
                 fontFamily: 'din-round-bold'
@@ -218,35 +230,38 @@ export default class Output extends React.Component {
             style={{
               borderBottomColor: '#FEFEFE',
               borderBottomWidth: 1,
-              marginLeft: 50,
-              marginRight: 60,
+              marginLeft: 55,
+              marginRight: 50,
               marginBottom: 5
             }}
           />
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, marginBottom: 50 }}>
             {data.map((item, idx) => (
               <View key={item.TStop}>
                 <View
                   style={{
                     flexDirection: 'row',
-                    marginLeft: 80
+                    justifyContent: 'space-around'
                   }}
                 >
                   <Text
                     style={{
-                      flex: 1,
+                      // flex: 1,
+                      fontFamily: 'din-round',
                       color: idx % 3 === 0 ? '#FEFEFE' : '#ED1C24',
-                      fontSize: 13,
-                      fontWeight: 'bold'
+                      fontSize: 15,
+                      marginLeft: 20
                     }}
                   >
                     {item.TStop.toPrecision(4)}
                   </Text>
                   <Text
                     style={{
-                      flex: 1,
-                      color: '#FEFEFE',
-                      fontSize: 13
+                      // flex: 1,
+                      fontFamily: 'din-round',
+                      color: idx % 3 === 0 ? '#FEFEFE' : '#ED1C24',
+                      fontSize: 15,
+                      marginRight: 45
                     }}
                   >
                     {item.Reading(
