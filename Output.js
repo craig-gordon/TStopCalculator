@@ -34,7 +34,9 @@ const styles = StyleSheet.create({
 
 export default class Output extends React.Component {
   state = {
-    ...this.props.navigation.state.params.state
+    ...this.props.navigation.state.params.state,
+    buttonPressed: false,
+    displaySaved: false
   };
 
   render() {
@@ -148,7 +150,8 @@ export default class Output extends React.Component {
           <View
             style={{
               alignItems: 'center',
-              marginBottom: 30
+              marginBottom: 30,
+              opacity: this.state.buttonPressed ? 0.25 : 1
             }}
           >
             <TouchableOpacity
@@ -157,6 +160,7 @@ export default class Output extends React.Component {
                 borderWidth: 2
               }}
               onPress={async () => {
+                this.setState({ buttonPressed: true });
                 const { status } = await Permissions.askAsync(
                   Permissions.CAMERA_ROLL
                 );
@@ -164,11 +168,23 @@ export default class Output extends React.Component {
                   const screenshot = await takeSnapshotAsync(this.info, {
                     format: 'jpg'
                   });
-                  const newScreenshotURI = await CameraRoll.saveToCameraRoll(
-                    screenshot
+                  await CameraRoll.saveToCameraRoll(screenshot);
+
+                  this.setState(
+                    () => ({ displaySaved: true }),
+                    () => {
+                      setTimeout(
+                        () =>
+                          this.setState({
+                            displaySaved: false,
+                            buttonPressed: false
+                          }),
+                        4000
+                      );
+                    }
                   );
-                  return newScreenshotURI;
                 } else {
+                  this.setState({ buttonPressed: false });
                   throw new Error('Camera Roll permission not granted');
                 }
               }}
@@ -180,7 +196,7 @@ export default class Output extends React.Component {
                   color: '#FFFFFF'
                 }}
               >
-                Screenshot
+                {this.state.displaySaved ? 'Screenshot saved' : 'Screenshot'}
               </Text>
             </TouchableOpacity>
           </View>
