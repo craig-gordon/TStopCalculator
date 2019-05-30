@@ -9,6 +9,12 @@
     "privacy": "public",
     "platforms": ["android", "ios"],
     "description": "Zero Optik T-Stop Calculator",
-    "githubUrl": "https://github.com/craig-gordon/TStopCalculator"
+    "githubUrl": "https://github.com/craig-gordon/TStopCalculator",
+    "ios": {
+      "bundleIdentifier": "com.zerooptik.tstopcalculator"
+    },
+    "android": {
+      "package": "com.zerooptik.tstopcalculator"
+    }
   }
 }

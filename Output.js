@@ -67,40 +67,10 @@ export default class Output extends React.Component {
               paddingBottom: 15
             }}
           >
-            <View
-              style={{
-                alignItems: 'center',
-                marginLeft: 5,
-                marginRight: 5
-              }}
-            >
-              <Text style={styles.topLabel}>Max Aperture Reading</Text>
-              <Text style={styles.topValue}>
-                {this.state.maxApertureReading}
-              </Text>
-            </View>
-            <View
-              style={{
-                marginBottom: 15,
-                alignItems: 'center'
-              }}
-            >
-              <Text style={styles.topLabel}>Max T-Stop Calculation</Text>
-              <Text style={styles.topValue}>
-                {this.state.maxApertureReading > 0
-                  ? ` ${Math.sqrt(
-                      this.state.data[0].Reading(
-                        this.state.calibrationReading,
-                        this.state.calibrationIndex
-                      ) / this.state.maxApertureReading
-                    ).toFixed(3)}`
-                  : null}
-              </Text>
-            </View>
             {this.state.lensManufacturer === '' ? null : (
               <View
                 style={{
-                  marginBottom: 15,
+                  marginBottom: 12,
                   alignItems: 'center'
                 }}
               >
@@ -113,7 +83,7 @@ export default class Output extends React.Component {
             {this.state.lensSeries === '' ? null : (
               <View
                 style={{
-                  marginBottom: 15,
+                  marginBottom: 12,
                   alignItems: 'center'
                 }}
               >
@@ -121,10 +91,21 @@ export default class Output extends React.Component {
                 <Text style={styles.topValue}>{this.state.lensSeries}</Text>
               </View>
             )}
+            {this.state.focalLength === '' ? null : (
+              <View
+                style={{
+                  marginBottom: 12,
+                  alignItems: 'center'
+                }}
+              >
+                <Text style={styles.topLabel}>Focal Length</Text>
+                <Text style={styles.topValue}>{this.state.focalLength}</Text>
+              </View>
+            )}
             {this.state.nominalMaxAperture === '' ? null : (
               <View
                 style={{
-                  marginBottom: 15,
+                  marginBottom: 12,
                   alignItems: 'center'
                 }}
               >
@@ -134,28 +115,35 @@ export default class Output extends React.Component {
                 </Text>
               </View>
             )}
-            {this.state.focalLength === '' ? null : (
+            {this.state.serialNumber === '' ? null : (
               <View
                 style={{
                   marginBottom: 15,
                   alignItems: 'center'
                 }}
               >
-                <Text style={styles.topLabel}>Focal Length</Text>
-                <Text style={styles.topValue}>{this.state.focalLength}</Text>
+                <Text style={styles.topLabel}>Serial Number</Text>
+                <Text style={styles.topValue}>{this.state.serialNumber}</Text>
               </View>
             )}
-            {this.state.lensSerial === '' ? null : (
-              <View
-                style={{
-                  marginBottom: 15,
-                  alignItems: 'center'
-                }}
-              >
-                <Text style={styles.topLabel}>Lens Serial</Text>
-                <Text style={styles.topValue}>{this.state.lensSerial}</Text>
-              </View>
-            )}
+          </View>
+          <View
+            style={{
+              marginBottom: 30,
+              alignItems: 'center'
+            }}
+          >
+            <Text style={styles.topLabel}>Max T-Stop Calculation</Text>
+            <Text style={styles.topValue}>
+              {this.state.maxApertureReading > 0
+                ? ` ${Math.sqrt(
+                    this.state.data[0].Reading(
+                      this.state.calibrationReading,
+                      this.state.calibrationIndex
+                    ) / this.state.maxApertureReading
+                  ).toFixed(3)}`
+                : null}
+            </Text>
           </View>
           <View
             style={{

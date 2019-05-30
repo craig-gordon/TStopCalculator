@@ -24,15 +24,22 @@ class App extends Component {
   state = {
     fontLoaded: false,
     splashOpacity: new Animated.Value(1),
-    appOpacity: new Animated.Value(0)
+    appOpacity: new Animated.Value(0),
+    loadTime: undefined
   };
 
   async componentDidMount() {
+    this.setState({ loadTime: Date.now() });
     await Font.loadAsync({
       'zero-optik': require('./assets/fonts/ZeroOptik.ttf'),
       'din-round': require('./assets/fonts/DINRoundOT.ttf'),
       'din-round-bold': require('./assets/fonts/din-round-bold.ttf')
     });
+
+    let now = Date.now();
+    while (now - this.state.loadTime < 2750) {
+      now = Date.now();
+    }
 
     Animated.timing(this.state.splashOpacity, {
       toValue: 0,

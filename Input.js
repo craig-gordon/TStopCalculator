@@ -53,7 +53,7 @@ export default class Input extends React.Component {
     lensSeries: '',
     focalLength: '',
     nominalMaxAperture: '',
-    lensSerial: '',
+    serialNumber: '',
     data,
     opacity: new Animated.Value(0)
   };
@@ -178,32 +178,13 @@ export default class Input extends React.Component {
               color: '#C7C7CD',
               textAlign: 'right',
               opacity: this.determineOpacity(this.state.lensSeries),
-              width: 100
+              width: 150
             }}
             onChangeText={lensSeries => {
               this.setState({ lensSeries });
             }}
             value={this.state.lensSeries}
             placeholder='none'
-          />
-        </Animated.View>
-
-        <Animated.View style={{ ...styles.topView, opacity }}>
-          <Text style={styles.topLabel}>Nominal Max Aperture</Text>
-          <TextInput
-            style={{
-              fontSize: 18,
-              color: '#C7C7CD',
-              textAlign: 'right',
-              opacity: this.determineOpacity(this.state.nominalMaxAperture),
-              width: 100
-            }}
-            keyboardType='numeric'
-            onChangeText={nominalMaxAperture => {
-              this.setState({ nominalMaxAperture });
-            }}
-            value={this.state.nominalMaxAperture}
-            placeholder='0'
           />
         </Animated.View>
 
@@ -215,7 +196,7 @@ export default class Input extends React.Component {
               color: '#C7C7CD',
               textAlign: 'right',
               opacity: this.determineOpacity(this.state.focalLength),
-              width: 100
+              width: 80
             }}
             keyboardType='numeric'
             onChangeText={focalLength => {
@@ -226,20 +207,39 @@ export default class Input extends React.Component {
           />
         </Animated.View>
 
-        <Animated.View style={{ ...styles.topView, marginBottom: 50, opacity }}>
-          <Text style={styles.topLabel}>Lens Serial</Text>
+        <Animated.View style={{ ...styles.topView, opacity }}>
+          <Text style={styles.topLabel}>Nominal Max Aperture</Text>
           <TextInput
             style={{
               fontSize: 18,
               color: '#C7C7CD',
               textAlign: 'right',
-              opacity: this.determineOpacity(this.state.lensSerial),
-              width: 100
+              opacity: this.determineOpacity(this.state.nominalMaxAperture),
+              width: 80
             }}
-            onChangeText={lensSerial => {
-              this.setState({ lensSerial });
+            keyboardType='numeric'
+            onChangeText={nominalMaxAperture => {
+              this.setState({ nominalMaxAperture });
             }}
-            value={this.state.lensSerial}
+            value={this.state.nominalMaxAperture}
+            placeholder='0'
+          />
+        </Animated.View>
+
+        <Animated.View style={{ ...styles.topView, marginBottom: 50, opacity }}>
+          <Text style={styles.topLabel}>Serial Number</Text>
+          <TextInput
+            style={{
+              fontSize: 18,
+              color: '#C7C7CD',
+              textAlign: 'right',
+              opacity: this.determineOpacity(this.state.serialNumber),
+              width: 150
+            }}
+            onChangeText={serialNumber => {
+              this.setState({ serialNumber });
+            }}
+            value={this.state.serialNumber}
             placeholder='none'
           />
         </Animated.View>
